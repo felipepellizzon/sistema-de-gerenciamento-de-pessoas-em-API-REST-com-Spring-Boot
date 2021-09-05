@@ -53,12 +53,13 @@ public class PersonService {
         verifyIfExists(id);
         Person personToUpdate = personMapper.toModel(personDTO);
 
-        Person uptadedPerson = personRepository.save(personToUpdate);
-        return createMessageResponse(uptadedPerson.getId(), "Updated Person with ID ");
+        Person updatedPerson = personRepository.save(personToUpdate);
+        return createMessageResponse(updatedPerson.getId(), "Updated Person with ID ");
     }
 
     private Person verifyIfExists(Long id) throws PersonNotFoundException {
-        return personRepository.findById(id).orElseThrow(()-> new PersonNotFoundException(id));
+        return personRepository.findById(id)
+                .orElseThrow(()-> new PersonNotFoundException(id));
     }
 
     private MessageResponseDTO createMessageResponse(Long id, String message) {
